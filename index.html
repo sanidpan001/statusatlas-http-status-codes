@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StatusAtlas — HTTP Status Codes Explained: Searchable 1xx–5xx Reference</title>
+<meta name="description" content="Free HTTP status code reference. Search and filter every common status code with plain-English meanings, when you will see it, and how to fix it — with copy-ready snippets.">
+<link rel="canonical" href="https://statusatlas.fixoraa.tech/">
+<meta property="og:title" content="StatusAtlas — HTTP Status Codes Explained: Searchable 1xx–5xx Reference">
+<meta property="og:description" content="Free HTTP status code reference. Search and filter every common status code with plain-English meanings, when you will see it, and how to fix it — with copy-ready snippets.">
+<meta property="og:url" content="https://statusatlas.fixoraa.tech/">
+<meta property="og:type" content="website">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{--pri:#334155;--acc:#F59E0B;--bgc:#F8FAFC}
+body{background:var(--bgc);font-family:'Segoe UI',system-ui,sans-serif}
+.pri{background:var(--pri)} .prit{color:var(--pri)} .acct{color:var(--acc)}
+.btn{background:var(--pri);color:#fff;padding:.6rem 1.2rem;border-radius:.6rem;font-weight:600;cursor:pointer;border:none}
+.btn:hover{opacity:.9} .btn2{background:var(--acc);color:#111;padding:.6rem 1.2rem;border-radius:.6rem;font-weight:600;cursor:pointer;border:none}
+input,select,textarea{border:1.5px solid #cbd5e1;border-radius:.55rem;padding:.55rem .7rem;width:100%;background:#fff;color:#0f172a}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--pri);border-color:transparent}
+label{font-size:.83rem;font-weight:600;display:block;margin-bottom:.3rem}
+.card{background:#fff;border-radius:1rem;box-shadow:0 8px 30px rgba(15,23,42,.08);padding:1.4rem}
+article p{margin:.7rem 0;line-height:1.75;color:#334155}
+article h2{font-size:1.45rem;font-weight:800;margin:1.6rem 0 .4rem;color:#0f172a}
+.faq{background:#fff;border-radius:.7rem;padding:.9rem 1.1rem;margin:.55rem 0;box-shadow:0 2px 10px rgba(15,23,42,.05)}
+.faq summary{font-weight:700;cursor:pointer}
+table.dt{width:100%;border-collapse:collapse} table.dt th,table.dt td{border:1px solid #e2e8f0;padding:.45rem .6rem;text-align:left;font-size:.9rem}
+table.dt th{background:#f1f5f9}
+
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "StatusAtlas", "url": "https://statusatlas.fixoraa.tech/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "Free HTTP status code reference. Search and filter every common status code with plain-English meanings, when you will see it, and how to fix it \u2014 with copy-ready snippets."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the difference between 401 and 403?", "acceptedAnswer": {"@type": "Answer", "text": "401 means the server does not know who you are \u2014 log in or send a valid token. 403 means it knows exactly who you are and you are not allowed. Re-logging fixes 401; only a permissions change fixes 403."}}, {"@type": "Question", "name": "Should I use 301 or 302 for a redirect?", "acceptedAnswer": {"@type": "Answer", "text": "301 (permanent) when the move is forever \u2014 browsers and search engines update their records and rankings transfer. 302 (temporary) for short detours like maintenance or tests, where the original URL keeps its claim."}}, {"@type": "Question", "name": "What should my app do on a 429?", "acceptedAnswer": {"@type": "Answer", "text": "Slow down. Wait at least as long as the Retry-After header says, then retry with exponential backoff. Hammering a rate limiter converts a short pause into a longer block."}}, {"@type": "Question", "name": "Is a 404 bad for SEO?", "acceptedAnswer": {"@type": "Answer", "text": "A few are normal \u2014 the web rots naturally. Many 404s on URLs that used to work waste crawl budget and disappoint visitors arriving from links. Redirect moved pages with a 301, and use 410 for content deliberately retired."}}, {"@type": "Question", "name": "502 or 504 \u2014 which is which?", "acceptedAnswer": {"@type": "Answer", "text": "502 Bad Gateway: the proxy received an invalid response from the upstream server (often crashed or mid-deploy). 504 Gateway Timeout: the upstream simply took too long. Both are server-side; users can only retry later."}}, {"@type": "Question", "name": "Why is 418 in the list \u2014 is it real?", "acceptedAnswer": {"@type": "Answer", "text": "It is genuinely standardised, born as an April Fools' RFC joke about teapots, and a few real services use it as a playful refusal. It is kept in the atlas because developers do meet it and deserve a straight answer with the smile included."}}]}</script>
+</head>
+<body id="top">
+<header class="sticky top-0 z-40 shadow-md" style="background:#0F172A">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-3 flex items-center justify-between">
+    <a href="#top" class="text-xl font-extrabold tracking-tight" style="color:#F8FAFC">🗺 StatusAtlas</a>
+    <nav class="flex gap-5 text-sm font-semibold" style="color:#F8FAFC">
+      <a href="#top" class="hover:underline">Home</a>
+      <a href="https://fixoraa.tech" class="hover:underline">More Tools</a>
+    </nav>
+  </div>
+</header>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+  <div class="text-center mb-6">
+    <h1 class="text-3xl sm:text-4xl font-extrabold" style="color:#0f172a">HTTP Status Code Explorer</h1>
+    <p class="mt-2 text-slate-600 max-w-2xl mx-auto">301, 404, 429, 503 — status codes are the web's terse little telegrams. Search or filter the atlas below for any code's meaning, when it appears, and what to do about it.</p>
+    <span class="inline-block mt-3 px-3 py-1 rounded-full text-xs font-bold text-white pri">✓ Unlimited Free Usage — No Signup, No Watermark</span>
+  </div>
+  <div class="card">
+  <div class="flex gap-3 flex-wrap">
+    <input id="q" type="text" placeholder="Search: 404, redirect, timeout, teapot…" class="flex-1 min-w-[220px]" oninput="render()">
+    <div class="flex gap-1 flex-wrap" id="filters">
+      <button class="btn" data-f="all" onclick="setf('all')">All</button>
+      <button class="btn2" data-f="1" onclick="setf('1')">1xx Info</button>
+      <button class="btn2" data-f="2" onclick="setf('2')">2xx Success</button>
+      <button class="btn2" data-f="3" onclick="setf('3')">3xx Redirect</button>
+      <button class="btn2" data-f="4" onclick="setf('4')">4xx Client error</button>
+      <button class="btn2" data-f="5" onclick="setf('5')">5xx Server error</button>
+    </div>
+  </div>
+  <div id="list" class="mt-4 space-y-2"></div>
+ </div>
+</main>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script async src="https://js.wpadmngr.com/static/adManager.js" data-admpid="464498"></script>
+    </div>
+  </div>
+</div>
+<section class="mx-auto max-w-4xl px-4 sm:px-6 pb-6">
+  <article>
+  <h2>The web's shortest conversations</h2>
+<p>Every time a browser meets a server, the exchange begins with a three-digit verdict. Before a single word of your page travels, the server announces how the conversation went: success, detour, your mistake, my mistake, or news too early to call. Those digits — HTTP status codes — are the most-read sentences on the internet, and among the least understood by the people who encounter them daily. StatusAtlas exists to translate them: every common code, in plain English, with the two things you actually need — when you will see it, and what to do next.</p>
+<p>The codes organise into five families by their first digit, and learning the families is learning 80 percent of the system. 1xx is informational — hold on, processing. 2xx is success. 3xx is redirection — the thing you want lives elsewhere. 4xx blames the request: the client asked wrongly. 5xx blames the server: the request was fine and the kitchen is on fire. When a code you have never seen appears, its family alone tells you whose problem it is and where to start digging.</p>
+<h2>The success and redirect families</h2>
+<p>200 OK is the web's workhorse, but its siblings carry precision worth using: 201 when a POST genuinely created something, 204 when success is silent by design. Builders who return the right 2xx make APIs self-documenting; clients who check for the family rather than exactly 200 write integrations that survive upgrades. The 3xx family is about geography. 301 and 308 are permanent moves — update your records, search engines transfer their rankings — while 302 and 307 are temporary detours that preserve the original address's claim. Confusing the two is a classic, costly error: a 'temporary' redirect left in place for years leaks search value, and a permanent one issued during a weekend experiment can be cached by browsers with stubborn enthusiasm.</p>
+<p>304 deserves a special nod: it is the sound of caching working. The browser asks 'has it changed?', the server answers 'no', and megabytes stay un-sent. Sites that feel magically fast on repeat visits are usually sites whose 304s are configured with intent.</p>
+<h2>4xx: the client-error family, decoded</h2>
+<p>The 4xx codes are where users and developers collide, because each one assigns the fault to the request — sometimes fairly, sometimes diplomatically. 400 means the request itself was malformed or incomplete. 401 means 'who are you?' — authentication missing or expired. 403 means 'I know who you are, and no' — a permissions problem that re-logging will never fix. 404, the celebrity of the family, means the address maps to nothing; 410 is its deliberate cousin, a tombstone for content removed on purpose, which search engines retire faster. 405 is a verb mismatch, 409 a state conflict, 422 a validation failure with the failing fields usually itemised in the response body — read it before changing anything.</p>
+<p>Two 4xx codes deserve modern fluency. 429 — Too Many Requests — is the rate limiter's raised hand; the correct response is exponential backoff and respect for the Retry-After header, never an instant retry loop, which converts a pause into a ban. And 418, the teapot, began as an April Fools' joke and survives as a reminder that the people who built the web had humour — a few real APIs still wield it as a polite, unmistakable 'no'.</p>
+<h2>5xx: when the server is the story</h2>
+<p>Server errors share a user experience — 'it's not you, it's us' — but their fixes diverge sharply. 500 is a crash: somewhere, code met a case it could not handle, and the only cure lives in the server logs. 501 means the server never implemented what was asked. 502 and 504 are gateway dramas: the front door (a proxy or load balancer) is healthy, but the kitchen behind it returned nonsense (502) or took too long (504) — the signature pairing of deploys, crashed workers and database queries gone wandering. 503 is the honest overload or maintenance signal, and the one code where 'try again shortly' is literally the specification.</p>
+<p>For site owners, the discipline is monitoring: log your 5xx rate, alert on its rise, and give users a status page instead of silence. For API consumers, the discipline is retry design: 5xx responses may be retried with backoff and jitter, 4xx generally may not — retrying a 403 a thousand times is a loop, not a strategy. The atlas entry for each code states its fix in one line because, mid-incident, one line is what anyone has time to read.</p>
+<h2>Using this atlas under pressure</h2>
+<p>Search by number when an error is on your screen; search by symptom-word — timeout, redirect, validation — when you are designing and want the right code before users meet the wrong one. Filter by family to study a class at once, the way you would before an interview or an API design review. The copy button on every entry drops a small fetch() snippet with that code's check pre-written, because handling statuses deliberately, per branch, is what separates an integration that degrades gracefully from one that fails theatrically.</p>
+<p>Above all, treat status codes as a designed language, not weather. If you build anything on the web, you choose which codes your users and fellow developers will read at their worst moments. Choose precisely, document honestly, and the three digits will do more for your support load than a hundred FAQ pages.</p>
+<h2>A pocket history in three digits</h2>
+<p>Status codes arrived with HTTP in the early 1990s, borrowed in spirit from FTP's reply codes, and grew by accretion: the web's needs outran the original list, so new digits were standardised as new problems — rate limiting, legal takedowns, validation semantics — demanded names. Some codes are now near-extinct in the wild, others (looking at you, 404) became cultural artefacts printed on t-shirts. The system endures because it is small enough to memorise by family and expressive enough to run the world's largest machine. This atlas is your map to it — bookmark it for the day a strange number appears and everyone in the room turns to look at you.</p>
+<h2>Designing errors your users can act on</h2>
+<p>If you build APIs or sites, the atlas doubles as a style guide. Return the most specific code the situation earns — 422 for validation with a body naming the fields, 409 for conflicts the client can resolve, 410 for deliberate removals — and never let a framework's default 200-with-error-payload escape into the wild, because it poisons every client, monitor and cache downstream. Pair every error code with a human sentence and a machine-readable error key; the code tells the client what class of response to make, the sentence tells the human what to fix, and the key keeps analytics honest.</p>
+<p>Equally, design the absence of errors: correct 304 caching, honest 503s during maintenance with a Retry-After, and redirects that respect permanence. Users forgive a well-explained detour; they do not forgive silence wearing a spinner. The three digits are tiny, but they are the part of your product that speaks when everything else has failed — make sure it speaks well.</p>
+<h2>The codes you will meet this week</h2>
+<p>Real-world frequency is brutally concentrated: a handful of codes — 200, 301, 304, 404, 500 — account for the overwhelming majority of all responses ever sent, and the atlas orders its teaching accordingly, depth where the traffic is. But the long tail is where professionalism shows: the developer who reaches for 429 with a Retry-After, or answers a validation failure with 422 and a field list, is writing fewer support tickets for their future self. Bookmark the atlas and skim one family per coffee break for a week; by Friday the whole map will feel like local geography, and strange numbers on screens will have stopped being weather and started being sentences you can read.</p>
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq"><summary>What is the difference between 401 and 403?</summary><p>401 means the server does not know who you are — log in or send a valid token. 403 means it knows exactly who you are and you are not allowed. Re-logging fixes 401; only a permissions change fixes 403.</p></details>
+<details class="faq"><summary>Should I use 301 or 302 for a redirect?</summary><p>301 (permanent) when the move is forever — browsers and search engines update their records and rankings transfer. 302 (temporary) for short detours like maintenance or tests, where the original URL keeps its claim.</p></details>
+<details class="faq"><summary>What should my app do on a 429?</summary><p>Slow down. Wait at least as long as the Retry-After header says, then retry with exponential backoff. Hammering a rate limiter converts a short pause into a longer block.</p></details>
+<details class="faq"><summary>Is a 404 bad for SEO?</summary><p>A few are normal — the web rots naturally. Many 404s on URLs that used to work waste crawl budget and disappoint visitors arriving from links. Redirect moved pages with a 301, and use 410 for content deliberately retired.</p></details>
+<details class="faq"><summary>502 or 504 — which is which?</summary><p>502 Bad Gateway: the proxy received an invalid response from the upstream server (often crashed or mid-deploy). 504 Gateway Timeout: the upstream simply took too long. Both are server-side; users can only retry later.</p></details>
+<details class="faq"><summary>Why is 418 in the list — is it real?</summary><p>It is genuinely standardised, born as an April Fools' RFC joke about teapots, and a few real services use it as a playful refusal. It is kept in the atlas because developers do meet it and deserve a straight answer with the smile included.</p></details>
+  </article>
+</section>
+<footer class="mt-6 py-8" style="background:#0F172A;color:#F8FAFC">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 text-center text-sm">
+    <p class="font-bold text-base">StatusAtlas</p>
+    <p class="opacity-80 mt-1">Free HTTP status code reference. Search and filter every common status code with plain-English meanings, when you will see it, and how to fix it — with copy-ready snippets.</p>
+    <p class="mt-2"><a href="#top" class="underline">Home</a> · <a href="https://fixoraa.tech" class="underline">More Tools</a></p>
+    <p class="fx-credit" style="text-align:center;font-size:12.5px;opacity:.62;margin:10px auto 2px;letter-spacing:.01em">Made by <a href="https://fixoraa.tech" target="_blank" rel="noopener" style="color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:2px">Fixoraa</a></p>
+  </div>
+</footer>
+<script>
+
+var CODES=[
+[100,'Continue','Info','Server received the headers; send the body.','Rarely seen directly; clients handle it automatically.','No action needed.'],
+[101,'Switching Protocols','Info','Protocol upgrade (e.g. to WebSocket) accepted.','Opening WebSocket connections.','Normal during realtime connections.'],
+[200,'OK','Success','Request succeeded; body contains the result.','Every successful page or API call.','Nothing — celebrate quietly.'],
+[201,'Created','Success','A new resource was created (POST result).','Signup, order placement, uploads.','Store the returned id/URL.'],
+[204,'No Content','Success','Success with an intentionally empty body.','DELETE calls, beacon pings.','Do not expect JSON in the response.'],
+[301,'Moved Permanently','Redirect','URL has a new permanent home; SEO value transfers.','Renamed pages, http→https, domain moves.','Update links/bookmarks to the new URL.'],
+[302,'Found','Redirect','Temporary redirect to another URL.','Login bounces, A/B tests, maintenance.','Follow it; do not update permanent links.'],
+[304,'Not Modified','Redirect','Cached copy is still valid; body not resent.','Repeat visits with caching headers.','Serve from cache — it is working as designed.'],
+[307,'Temporary Redirect','Redirect','Temporary redirect that preserves method and body.','POST endpoints temporarily moved.','Retry at the new URL with the same payload.'],
+[308,'Permanent Redirect','Redirect','Permanent redirect preserving method and body.','API base URL migrations.','Update the client base URL permanently.'],
+[400,'Bad Request','Client error','Server could not understand the request (bad syntax/params).','Malformed JSON, missing required fields.','Validate the payload against the API docs; log the raw request.'],
+[401,'Unauthorized','Client error','Authentication required or failed.','Missing/expired token, logged-out session.','Log in again; check token header and expiry.'],
+[403,'Forbidden','Client error','Authenticated, but not allowed to access this.','Insufficient permissions, blocked IP/region.','Check roles/permissions; do not retry-login loop.'],
+[404,'Not Found','Client error','The URL maps to nothing that exists.','Typos, deleted pages, wrong API path.','Verify the URL; add a redirect if the page moved.'],
+[405,'Method Not Allowed','Client error','Right URL, wrong verb (e.g. POST to a GET endpoint).','Form posting to a read-only route.','Match the verb to the API documentation.'],
+[408,'Request Timeout','Client error','Client took too long to send the request.','Slow networks, huge uploads stalling.','Retry with a better connection; chunk uploads.'],
+[409,'Conflict','Client error','Request conflicts with current state (e.g. duplicate).','Double-submit, edit collisions, unique constraint.','Refresh state, resolve the conflict, retry once.'],
+[410,'Gone','Client error','Resource existed and was deliberately removed forever.','Retired products, expired campaigns.','Remove links; unlike 404, this is intentional.'],
+[418,"I'm a Teapot",'Client error',' joke code from an April Fools RFC; some APIs use it for "no".','Easter eggs, playful APIs refusing politely.','Smile; then read the API docs for the real refusal.'],
+[422,'Unprocessable Content','Client error','Syntax fine, but validation failed (semantics wrong).','Form/API validation errors.','Read the error body — it lists the failing fields.'],
+[429,'Too Many Requests','Client error','Rate limit hit; slow down.','Scrapers, retry storms, shared API quotas.','Back off exponentially; honour Retry-After.'],
+[500,'Internal Server Error','Server error','Generic crash on the server side.','Bugs, unhandled exceptions.','Check server logs for the stack trace; it is not your request format.'],
+[501,'Not Implemented','Server error','Server does not support the requested functionality.','Exotic verbs, unfinished endpoints.','Use a supported endpoint; alert the API owner.'],
+[502,'Bad Gateway','Server error','Proxy/gateway got an invalid response from upstream.','Deploys, crashed app servers behind a load balancer.','Check the upstream service health; retry shortly.'],
+[503,'Service Unavailable','Server error','Server overloaded or down for maintenance.','Traffic spikes, deployments, maintenance windows.','Retry later with backoff; check the status page.'],
+[504,'Gateway Timeout','Server error','Upstream took too long to respond.','Slow queries, hung services.','Profile the slow endpoint; add timeouts and caching.']];
+var F='all';
+function setf(f){F=f;render();}
+function render(){
+  var q=document.getElementById('q').value.toLowerCase();
+  var rows=CODES.filter(function(c){return (F==='all'||String(c[0])[0]===F) && (String(c[0]).indexOf(q)>=0||c[1].toLowerCase().indexOf(q)>=0||c[3].toLowerCase().indexOf(q)>=0);});
+  document.getElementById('list').innerHTML=rows.length?rows.map(function(c){
+    var col=c[2]==='Success'?'#16A34A':c[2]==='Redirect'?'#2563EB':c[2]==='Client error'?'#D97706':c[2]==='Server error'?'#DC2626':'#64748B';
+    return '<div class="border rounded-lg p-3 flex gap-3 flex-wrap" style="border-left:6px solid '+col+'"><div class="text-2xl font-extrabold" style="color:'+col+'">'+c[0]+'</div><div class="flex-1 min-w-[240px]"><div class="font-bold">'+c[1]+' <span class="text-xs font-semibold text-slate-500">'+c[2].toUpperCase()+'</span></div><div>'+c[3]+'</div><div class="text-sm text-slate-600"><b>When you see it:</b> '+c[4]+'</div><div class="text-sm text-slate-600"><b>Fix:</b> '+c[5]+'</div></div><button class="btn h-fit" onclick="cp('+c[0]+')">Copy fetch snippet</button></div>';
+  }).join(''):'<p class="text-slate-500">No codes match — try a number like 404 or a word like redirect.</p>';
+}
+function cp(code){var s="fetch(url).then(r=>{ if(r.status==="+code+"){ /* handle "+code+" */ } })";if(navigator.clipboard)navigator.clipboard.writeText(s);alert('Copied a fetch() status-check snippet for '+code);}
+render();
+
+</script>
+</body>
+</html>
